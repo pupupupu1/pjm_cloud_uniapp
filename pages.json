@@ -1,0 +1,246 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, { //pages数组中第一项表示应用启动页,
+			"path": "pages/messageList/messageList",
+			"style": {
+				"navigationBarTitleText": "消息",
+				"enablePullDownRefresh":true
+			}
+		},
+		{
+			"path": "pages/main/main",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		}, {
+			"path": "pages/reg/reg",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		}, {
+			"path": "pages/pwd/pwd",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh":true
+			}
+		}, {
+			"path": "pages/friendShip/friendShip",
+			"style": {
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+				"enablePullDownRefresh":true
+			}
+		}, {
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "聊天"
+			}
+		}, {
+			"path": "pages/other/other",
+			"style": {
+				"navigationBarTitleText": "发现",
+				"enablePullDownRefresh":true
+			}
+		}, {
+			"path": "pages/test/test",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/test2/test2",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/myInfoCard/myInfoCard",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh":true
+				
+			}
+
+		}, {
+			"path": "pages/otherInfoCard/otherInfoCard",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh":true
+			}
+
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/applyPeopleList/applyPeopleList",
+			"style": {
+				"navigationBarTitleText": "好友申请",
+				"enablePullDownRefresh": true
+			}
+
+		},
+		{
+			"path": "pages/talk/talk",
+			"style": {
+				"navigationStyle": "custom", // 取消本页面的导航栏
+				"app-plus": {
+					"animationType": "fade-in" // 设置fade-in淡入动画，为最合理的动画类型
+					// "background": "transparent", // 背景透明
+					// "backgroundColor": "rgba(0,0,0,0)", // 背景透明
+					// "popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+				}
+			}
+		}, {
+			"path": "pages/circle_of_firend/circle_of_firend",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+				// "navigationBarBackgroundColor": "transparent",
+				// "navigationBarTextStyle": "white",
+				// "app-plus": {
+				// 	"titleNView": {
+				// 		"type": "float"
+				// 		"titleText": "uni-app"
+				// 	}
+				// }
+			}
+
+		}, {
+			"path": "pages/circle_of_firend/detail_circle_of_friend",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"enablePullDownRefresh":true
+				// "navigationBarBackgroundColor": "transparent",
+				// "navigationBarTextStyle": "white",
+				// "app-plus": {
+				//     "titleNView": {
+				//         "type": "float"
+				//         // "titleText": "uni-app"
+				//     }
+				// }
+			}
+
+		}, {
+			"path": "pages/circle_of_firend/addCircleOfFriend",
+			"style": {
+				"navigationBarTitleText": "发表"
+			}
+
+		}, {
+			"path": "pages/findOther/findOther",
+			"style": {
+				"navigationBarTitleText": "发现",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	    ,{
+            "path" : "pages/group/groupInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/group/addGroup",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/file/fileInfo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "文件信息",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/myNearby/myNearby",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "附近的人",
+                "enablePullDownRefresh": true
+            }
+            
+        },{
+            "path" : "pages/myInfoCard/myInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"tabBar": {
+		"color": "#7a7e83",
+		"selectedColor": "#0faeff",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/messageList/messageList",
+				"text": "消息",
+				"iconPath": "static/img/home.png",
+				"selectedIconPath": "static/img/homeHL.png"
+			}, {
+				"pagePath": "pages/friendShip/friendShip",
+				"text": "通讯录",
+				"iconPath": "static/img/user.png",
+				"selectedIconPath": "static/img/userHL.png"
+			}, {
+				"pagePath": "pages/findOther/findOther",
+				"text": "发现",
+				"iconPath": "static/img/add.png",
+				"selectedIconPath": "static/img/userHL.png"
+			}, {
+				"pagePath": "pages/myInfoCard/myInfoCard",
+				"text": "我的",
+				"iconPath": "static/img/add.png",
+				"selectedIconPath": "static/img/userHL.png"
+			}
+			// , {
+			// 	"pagePath": "pages/test/test",
+			// 	"text": "推流",
+			// 	"iconPath": "static/img/add.png",
+			// 	"selectedIconPath": "static/img/userHL.png"
+			// }, {
+			// 	"pagePath": "pages/test2/test2",
+			// 	"text": "拉流",
+			// 	"iconPath": "static/img/add.png",
+			// 	"selectedIconPath": "static/img/userHL.png"
+			// } ,
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#0faeff",
+		"backgroundColor": "#fbf9fe"
+	},
+	"app-plus": {
+		"softinputMode": "adjustResize"
+	}
+}

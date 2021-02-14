@@ -1,0 +1,1 @@
+<view><u-search vue-id="78d6737c-1" placeholder="搜索" show-action="{{false}}" margin="20rpx 20rpx" bind:__l="__l"></u-search></view>

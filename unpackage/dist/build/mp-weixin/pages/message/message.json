@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "聊天",
+  "usingComponents": {
+    "u-col": "/node-modules/uview-ui/components/u-col/u-col",
+    "avatar": "/components/avatar/avatar"
+  }
+}

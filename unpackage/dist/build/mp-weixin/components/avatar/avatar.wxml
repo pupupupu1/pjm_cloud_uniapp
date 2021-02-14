@@ -1,0 +1,1 @@
+<view><u-avatar vue-id="74f3293c-1" src="{{src}}" mode="{{mode}}" size="{{size}}" bind:__l="__l"></u-avatar></view>

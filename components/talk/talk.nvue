@@ -1,0 +1,50 @@
+<template>
+	<div>
+		<live-pusher id="livePusher" :url="url" mode="FHD"></live-pusher>
+		<video :src="url" style="width: 100vw;height: 400rpx;" :autoplay="true" controls></video>
+		<button @click="close">挂断</button>
+	</div>
+</template>
+
+<script>
+	import { mapState, mapMutations } from 'vuex';
+export default {
+	data() {
+		return {
+			url: 'rtmp://39.105.78.171:7777/rtmplive/',
+			enableCamera: false,
+			context: null
+		};
+	},
+	computed: mapState(['accessToken'])
+	onReady() {
+		this.context = uni.createLivePusherContext('livePusher', this);
+		this.url = this.url + this.accessToken;
+		this.EnableCamera();
+		this.startLive();
+	},
+	methods: {
+		EnableCamera() {
+			this.enableCamera = true;
+		},
+		startLive() {
+			this.context.start({
+				success: a => {
+					console.log('livePusher.start:' + JSON.stringify(a));
+				}
+			});
+		},
+		stopLive() {
+			this.context.stop({
+				success: a => {
+					console.log(JSON.stringify(a));
+				}
+			});
+		},
+		close() {
+			uni.navigateBack();
+		}
+	}
+};
+</script>
+<style></style>

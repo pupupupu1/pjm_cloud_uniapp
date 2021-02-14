@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "通讯录",
+  "usingComponents": {
+    "search": "/components/search/search",
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection",
+    "u-cell-group": "/node-modules/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/node-modules/uview-ui/components/u-cell-item/u-cell-item",
+    "avatar": "/components/avatar/avatar"
+  }
+}
