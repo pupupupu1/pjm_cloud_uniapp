@@ -88,8 +88,8 @@
 							</view>
 							<!-- 右-头像 -->
 							<view class="right">
-								<!-- <image :src="row.msg.userinfo.face"></image> -->
-								<u-col v-if="row.isme"><avatar size="80" mode="square" /></u-col>
+								<image :src="'http://39.105.78.171:1250'+userDetailedInfo.userHeader"></image>
+								<!-- <u-col v-if="row.isme" style="margin-right: 10rpx;"><avatar :src="'http://39.105.78.171:1250'+userDetailedInfo.userHeader" size="80" mode="square" /></u-col> -->
 							</view>
 						</view>
 						<!-- 别人发出的消息 -->
@@ -97,7 +97,8 @@
 							<!-- 左-头像 -->
 							<view class="left">
 								<!-- <image :src=""></image> -->
-								<u-col v-if="!row.isme" span="2"><avatar size="80" mode="square" /></u-col>
+								<image :src="'http://39.105.78.171:1250'+row.userHeader"></image>
+								<!-- <u-col v-if="!row.isme" span="2"><avatar size="80" mode="square" /></u-col> -->
 							</view>
 							<!-- 右-用户名称-时间-消息 -->
 							<view class="right">
@@ -222,7 +223,7 @@ import file from '../../components/tki-file-manager/tki-file-manager.vue';
 import lFile from '@/components/l-file/l-file.vue';
 export default {
 	computed: {
-		...mapState(['userName', 'isOnLine', 'msgList', 'socketTask', 'friendList', 'groupList', 'talkConfirm'])
+		...mapState(['userDetailedInfo','userName', 'isOnLine', 'msgList', 'socketTask', 'friendList', 'groupList', 'talkConfirm'])
 	},
 	components: {
 		avatar,
@@ -564,7 +565,8 @@ export default {
 				blessing: null,
 				money: null
 			},
-			localPath:''
+			localPath:'',
+			friendInfo:{}
 		};
 	},
 	created() {
@@ -587,6 +589,7 @@ export default {
 			console.log(that.friendList);
 			//从friendList过滤获取此人姓名
 			friendInfo = that.friendList.find(item => item.user.userAccount == params.id);
+			this.friendInfo=friendInfo
 			console.log(friendInfo);
 			uni.setNavigationBarTitle({
 				title: friendInfo.user.userName != null ? friendInfo.user.userName : friendInfo.user.userAccount
@@ -600,6 +603,7 @@ export default {
 			uni.setNavigationBarTitle({
 				title: groupInfo.userGroupName
 			});
+			console.log("groupList:{}",groupInfo)
 			this.optionName = groupInfo.userGroupName;
 			this.msgBody.receiveAccount = groupInfo.id;
 		}
@@ -621,6 +625,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: path,
+								userHeader:friendInfo.userHeader,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength,
 								img: {
@@ -638,6 +643,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: res,
+								userHeader:friendInfo.userHeader,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength
 							});
@@ -648,6 +654,7 @@ export default {
 							id: data.header.id,
 							isSys: false,
 							isme: false,
+							userHeader:friendInfo.userHeader,
 							msg: data.msgBody,
 							file:JSON.parse(data.msgBody),
 							type: data.header.type
@@ -658,6 +665,7 @@ export default {
 							id: data.id,
 							isSys: false,
 							isme: false,
+							userHeader:friendInfo.userHeader,
 							msg: data.msgBody,
 							type: data.header.type
 						});
@@ -665,11 +673,13 @@ export default {
 					}
 				}
 			} else if (data.action == 3) {
-				if (that.userName != data.sourceAccount) {
+				if (that.userName != data.sourceAccount&&data.receiveAccount==groupInfo.id) {
+					var sourceUserInfo=JSON.parse(data.header.sourceUserInfo)
 					console.log(data.sourceAccount + '发来了群内新消息');
 					if (data.header.type == 'img') {
 						// console.log(data.msgBody);
 						base64ToPath(data.msgBody).then(path => {
+							
 							that.msgs.push({
 								id: data.header.id,
 								isSys: false,
@@ -677,6 +687,7 @@ export default {
 								msg: path,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength,
+								userHeader:sourceUserInfo.userHeader,
 								sourceName: data.sourceAccount,
 								img: {
 									w: data.header.imgw,
@@ -693,6 +704,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: res,
+								userHeader:sourceUserInfo.userHeader,
 								type: data.header.type,
 								sourceName: data.sourceAccount,
 								voiceLength: data.header.voiceLength
@@ -705,6 +717,7 @@ export default {
 							isSys: false,
 							isme: false,
 							msg: data.msgBody,
+							userHeader:sourceUserInfo.userHeader,
 							file:JSON.parse(data.msgBody),
 							sourceName: data.sourceAccount,
 							type: data.header.type
@@ -715,6 +728,7 @@ export default {
 							id: data.id,
 							isSys: false,
 							isme: false,
+							userHeader:sourceUserInfo.userHeader,
 							msg: data.msgBody,
 							sourceName: data.sourceAccount,
 							type: data.header.type
@@ -817,10 +831,14 @@ export default {
 							}
 						});
 					} else {
+						if(item.header.sourceUserInfo){
+							var sourceUserInfo=JSON.parse(item.header.sourceUserInfo)
+						}
 						that.msgs.push({
 							id: item.header.id,
 							isSys: false,
 							isme: false,
+							userHeader:sourceUserInfo!=undefined?sourceUserInfo.userHeader:'',
 							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
 							sourceName: item.sourceAccount,

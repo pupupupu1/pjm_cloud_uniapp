@@ -31,8 +31,20 @@ const detailUserInfo = function(account) {
 		}
 	})
 }
-const userList = function(userAccount) {
-	return request.get4Token("pjm-service-user/user/searchList/" + userAccount).then(res => {
+const detailsGroup=function(id){
+	
+	return request.get4Token("pjm-service-user/userGroupInfo/details/" + id).then(res => {
+		console.log(res)
+		if (res && res.data.code == 200) {
+			console.log(res)
+			return res.data
+		} else {
+			console.log("出现异常")
+		}
+	})
+}
+const userList = function(key) {
+	return request.get4Token("pjm-service-user/user/searchList/" + key).then(res => {
 		console.log(res)
 		if (res && res.data.code == 200) {
 			console.log(res)
@@ -55,8 +67,48 @@ const request2AddFriends = function(id) {
 		}
 	})
 }
+const applicationJoinGroup=function(id){
+	return request.post4Token("pjm-service-user/userGroupMemberInfo/applicationJoinGroup/", {
+		userGroupId: id
+	}).then(res => {
+		console.log(res)
+		if (res && res.data.code == 200) {
+			console.log(res)
+			return res.data
+		} else {
+			console.log("出现异常")
+		}
+	})
+}
 const applyPeopleList = function() {
 	return request.get4Token("pjm-service-user/userFriendShip/applyList/").then(res => {
+		console.log(res)
+		if (res && res.data.code == 200) {
+			console.log(res)
+			return res.data
+		} else {
+			console.log("出现异常")
+		}
+	})
+}
+
+const applyGroupList = function() {
+	return request.get4Token("pjm-service-user/userGroupMemberInfo/getTheReviewListOfGroupMembershipApplicationRelatedToMe/").then(res => {
+		console.log(res)
+		if (res && res.data.code == 200) {
+			console.log(res)
+			return res.data
+		} else {
+			console.log("出现异常")
+		}
+	})
+}
+const agree2JoinGroup = function(id,memberId) {
+	let params={
+		id:id,
+		userGroupMemberId:memberId
+	}
+	return request.post4Token("pjm-service-user/userGroupMemberInfo/agree2JoinGroup/",params).then(res => {
 		console.log(res)
 		if (res && res.data.code == 200) {
 			console.log(res)
@@ -256,6 +308,7 @@ export default {
 	groupList,
 	request2AddFriends,
 	applyPeopleList,
+	applyGroupList,
 	getOfflineMsgList,
 	my_circle_of_firend_list,
 	detailCircleOfFriendInfo,
@@ -267,5 +320,8 @@ export default {
 	addGroup,
 	findGroupList,
 	getNearbyPeopleByLoc,
-	updateMyself
+	updateMyself,
+	agree2JoinGroup,
+	detailsGroup,
+	applicationJoinGroup
 }

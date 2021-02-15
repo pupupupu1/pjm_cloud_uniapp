@@ -120,7 +120,7 @@
             "https" : false,
             "proxy" : {
                 "/" : {
-                    "target" : "http://47.94.233.146:1220/",
+                    "target" : "http://localhost:1220/",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {

@@ -96,6 +96,13 @@
 				"enablePullDownRefresh": true
 			}
 
+		}, {
+			"path": "pages/applyPeopleList/applyGroupList",
+			"style": {
+				"navigationBarTitleText": "入群申请",
+				"enablePullDownRefresh": true
+			}
+
 		},
 		{
 			"path": "pages/talk/talk",
@@ -192,6 +199,14 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "个人信息",
+                "enablePullDownRefresh": false
+            }
+            
+        },{
+            "path" : "pages/myInfoCard/groupInfoCard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "群信息",
                 "enablePullDownRefresh": false
             }
             

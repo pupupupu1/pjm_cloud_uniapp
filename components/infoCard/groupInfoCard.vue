@@ -5,7 +5,7 @@
 				<view style="padding: 20rpx;" @click="toMyInfo">
 					<u-row gutter="10" show-head="false" show-foot="false" @click="toMyInfo">
 						<u-col span="4" @click="toMyInfo">
-							<view><avatar :src="'http://39.105.78.171:1250'+userInfo.userHeader" size="160" mode="square"></avatar></view>
+							<view><avatar :src="'http://39.105.78.171:1250' + userInfo.userHeader" size="160" mode="square"></avatar></view>
 						</u-col>
 						<u-col span="6" @click="toMyInfo">
 							<view>姓名:{{ userInfo.userName }}</view>
@@ -45,74 +45,40 @@
 import avatar from '../../components/avatar/avatar.vue';
 import { mapState, mapMutations } from 'vuex';
 import service from '../../service.js';
-import commonUtil from '../../util/commonUtil.js'
+import commonUtil from '../../util/commonUtil.js';
 export default {
 	components: {
 		avatar: avatar
 	},
 	computed: {
-		...mapState(['hasLogin', 'forcedLogin', 'socketTask', 'friendList','userDetailedInfo'])
+		...mapState(['hasLogin', 'forcedLogin', 'socketTask', 'groupList', 'userDetailedInfo'])
 	},
 	data() {
 		return {
-			userInfo: {},
-			userType: 0,
-			userFriendShip: {
-				friendUserId: ''
-			}
+			groupInfo: {},
+			joinType: 0
 		};
 	},
 	mounted() {
 		var routes = getCurrentPages();
 		var params = routes[routes.length - 1].options;
-		var userInfo = this.userDetailedInfo;
-		console.log("打印userinfo  ,{}",userInfo)
-		let userAccount; 
-		// params.userAccount='zyj'
-		if (params.userAccount == undefined || params.userAccount == userInfo.userName) {
-			userAccount = userInfo.userAccount;
-			this.userType = 0;
-		} else {
-			userAccount = params.userAccount;
-			let user = this.friendList.find(item => {
-				return item.user.userAccount == userAccount;
-			});
-			console.log(user);
-			console.log(this.friendList);
-			if (user && user.user.userAccount == userAccount) {
-				this.userType = 1;
-			} else {
-				this.userType = 2;
-			}
-		}
-		service.detailUserInfo(userAccount).then(res => {
-			this.userInfo = res.data;
+		let id = params.id;
+		this.groupInfo = this.groupList.find(item => {
+			return item.id == id;
 		});
+		if (this.groupInfo != undefined) {
+			this.joinType = 0;
+			service.detailsGroup(id).then(res => {
+				this.groupInfo = res.data;
+			});
+		} else {
+			this.joinType = 1;
+		}
 		//从friendList中对比是否存在这个用户，如果不存在则是陌生人
 	},
 	methods: {
 		...mapMutations(['logout']),
-		toMyInfo(){
-			if(this.userType == 0){
-				// uni.navigateTo({
-				// 	url:'../../pages/myInfoCard/myInfo'
-				// })
-				commonUtil.navigateTo('../../pages/myInfoCard/myInfo')
-			}
-		},
-		bindLogin() {
-			// uni.navigateTo({
-			// 	url: '../login/login'
-			// });
-			commonUtil.navigateTo('../login/login')
-		},
-		bindLogout() {
-			this.logout();
-			this.socketTask.close();
-			uni.reLaunch({
-				url: '../login/login'
-			});
-		},
+		toMyInfo() {},
 		toBeFriend(id) {
 			if (id) {
 				service.request2AddFriends(id).then(res => {
@@ -123,16 +89,10 @@ export default {
 			} else {
 			}
 		},
-		message(userAccount) {
+		message(id) {
 			uni.navigateTo({
-				url: '../message/message?id=' + userAccount + '&type=2'
+				url: '../message/message?id=' + id + '&type=3'
 			});
-		},
-		circleOfFriend(userAccount) {
-			uni.showToast({
-				title: userAccount
-			});
-			commonUtil.navigateTo('../circle_of_firend/circle_of_firend?userAccount='+userAccount)
 		}
 	}
 };

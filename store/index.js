@@ -255,6 +255,7 @@ const store = new Vuex.Store({
 								optionName: friendInfo.user.userName,
 								optionMsg: data.msgBody,
 								waitReadMsgNum: 1,
+						
 								msgTime: data.header.msgTime,
 								type: data.header.type,
 								isGroupMsg: false
@@ -584,7 +585,7 @@ const store = new Vuex.Store({
 			}
 		},
 		connWebsocket(state, userInfo) {
-			// let baseUrl = 'ws://locallhost:1234/websocket/';
+			// let baseUrl = 'ws://localhost:1234/websocket/';
 			// let baseUrl = 'ws://172.20.10.2:1234/websocket/'
 			// let baseUrl = 'ws://www.becomeagoodboy.top:12345/websocket/';
 			let baseUrl = 'ws://39.105.78.171:1234/websocket/';
