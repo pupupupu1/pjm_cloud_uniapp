@@ -613,8 +613,9 @@ export default {
 			console.log('收到了一条消息！');
 			let data = JSON.parse(res.data);
 			console.log(that.optionName);
-			// console.log(data);
+			
 			if (data.action == 2) {
+				console.log(friendInfo);
 				if (friendInfo.user.userAccount == data.sourceAccount) {
 					console.log(data.sourceAccount + '发来了新消息');
 					if (data.header.type == 'img') {
@@ -625,7 +626,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: path,
-								userHeader:friendInfo.userHeader,
+								userHeader:friendInfo.user.userHeader,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength,
 								img: {
@@ -643,7 +644,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: res,
-								userHeader:friendInfo.userHeader,
+								userHeader:friendInfo.user.userHeader,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength
 							});
@@ -654,7 +655,7 @@ export default {
 							id: data.header.id,
 							isSys: false,
 							isme: false,
-							userHeader:friendInfo.userHeader,
+							userHeader:friendInfo.user.userHeader,
 							msg: data.msgBody,
 							file:JSON.parse(data.msgBody),
 							type: data.header.type
@@ -662,10 +663,10 @@ export default {
 						that.jumpScroll();
 					}else if (data.header.type == 'text') {
 						that.msgs.push({
-							id: data.id,
+							id: data.header.id,
 							isSys: false,
 							isme: false,
-							userHeader:friendInfo.userHeader,
+							userHeader:friendInfo.user.userHeader,
 							msg: data.msgBody,
 							type: data.header.type
 						});
@@ -785,6 +786,7 @@ export default {
 							id: item.header.id,
 							isSys: false,
 							isme: true,
+							
 							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
 							type: item.header.type,
@@ -801,6 +803,7 @@ export default {
 							isme: false,
 							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
+							userHeader:friendInfo.user.userHeader,
 							type: item.header.type,
 							voiceLength: item.header.voiceLength,
 							img: {
@@ -1689,7 +1692,7 @@ export default {
 				this.$nextTick(function() {
 					// 滚动到底
 					that.scrollToView = 'msg' + that.msgs[that.msgs.length - 1].id;
-					// console.log(that.scrollToView)
+					console.log(that.scrollToView)
 				});
 			}
 		}
