@@ -1,11 +1,12 @@
 // let baseUrl='http://www.becomeagoodboy.top:1211'
-// #ifdef APP-PLUS
-var baseUrl = 'http://47.94.233.146:1220/'
-// #endif
+
 // #ifdef H5
 var baseUrl = ''
 // #endif
-
+// #ifdef APP-PLUS
+var baseUrl = 'http://47.94.233.146:1220/'
+// #endif
+// var baseUrl = 'http://47.94.233.146:1220/'
 // let baseUrl='http://127.0.0.1:1211'
 const post4Token = function(url, params) {
 	let token = uni.getStorageSync("Authorization")

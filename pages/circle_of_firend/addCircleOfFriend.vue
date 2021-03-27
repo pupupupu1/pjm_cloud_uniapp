@@ -65,6 +65,13 @@ export default {
 			// 		}
 			// 	});
 			// });
+			if(paths.length==0){
+				service.addCircleOfFriendInfo(this.text, '').then(res => {
+					// commonUtil.navigateTo('../circle_of_firend/circle_of_firend?userAccount='+this.userName)
+					uni.navigateBack();
+				});
+				return;
+			}
 			service.batchUploadFile(paths).then(res => {
 				console.log(res);
 				if (res.length == 1) {

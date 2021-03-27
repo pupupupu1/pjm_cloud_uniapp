@@ -114,7 +114,8 @@
         "title" : "pp聊天",
         "domain" : "www.becomeagoodboy.top",
         "router" : {
-            "mode" : "hash"
+            "mode" : "hash",
+            "base" : "./"
         },
         "devServer" : {
             "https" : false,
@@ -128,6 +129,9 @@
                     }
                 }
             }
+        },
+        "sdkConfigs" : {
+            "maps" : {}
         }
     }
 }

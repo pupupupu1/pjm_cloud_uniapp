@@ -3,7 +3,7 @@
 		<view><br /></view>
 		<view style="height: 80rpx;">
 			<u-row gutter="10">
-				<u-col span="2"><avatar size="80" mode="circle" /></u-col>
+				<u-col span="2"><avatar size="80" mode="circle" :src="'http://39.105.78.171:1250'+circle_of_friend_info.userHeader" /></u-col>
 				<u-col span="8">
 					<view>{{ circle_of_friend_info.userAccount }}</view>
 					<view>{{ circle_of_friend_info.createTime | formatDate }}</view>
@@ -66,7 +66,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['userName', 'socketTask', 'friendList'])
+		...mapState(['userName', 'socketTask', 'friendList', 'userDetailedInfo'])
 	},
 	methods: {
 		commontThisCircle() {
@@ -83,7 +83,22 @@ export default {
 				}
 
 				console.log(this.circle_of_friend_info);
+				if (this.userDetailedInfo.userAccount == this.circle_of_friend_info.userAccount){
+					this.circle_of_friend_info.userHeader=this.userDetailedInfo.userHeader
+				}else{
+					let user = this.friendList.find(i => i.user.userAccount == this.circle_of_friend_info.userAccount);
+					this.circle_of_friend_info.userHeader =  user.user.userHeader;
+				}
 				this.commentList = this.circle_of_friend_info.circleOfFriendsComments;
+				this.commentList.forEach(item => {
+					if (this.userDetailedInfo.userAccount == item.userAccount) {
+						item.userHeader = 'http://39.105.78.171:1250' + this.userDetailedInfo.userHeader;
+					} else {
+						let user = this.friendList.find(i => i.user.userAccount == item.userAccount);
+						item.userHeader = 'http://39.105.78.171:1250' + user.user.userHeader;
+					}
+				});
+				console.log('最新评论', this.commentList);
 				this.circleCommontParam.circleId = this.id;
 			});
 		},

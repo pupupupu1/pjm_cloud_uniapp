@@ -10,7 +10,7 @@
 			<text class="text-conmment-note">暂无评论</text>
 		</view>
 		<view v-if="commentList.length > 0" class="view-comment-list" v-for="(item, index) in commentList" :key="index">
-			<image :src="item.HEADIMGURL" class="view-comment-list-item-photo" mode="aspectFill"></image>
+			<image :src="item.userHeader" class="view-comment-list-item-photo"></image>
 			<view class="view-comment-list-item">
 				<view class="comment-title">
 					<text class="comment-name">{{ item.userAccount }}</text>

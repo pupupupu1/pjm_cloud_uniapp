@@ -32,6 +32,9 @@ Vue.filter("formatDate",(value)=>{
 	return time;	
 })
 Vue.filter("strSub",(str)=>{
+	if(str==null){
+		return ''
+	}
 	if(str.length>13){
 		return str.slice(0,13)+'...'
 	}else{

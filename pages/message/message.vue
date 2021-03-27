@@ -1036,7 +1036,7 @@ export default {
 			}
 			this.$nextTick(function() {
 				// 滚动到底
-				console.log('滚动到底msg' + JSON.stringify(msg));
+				// console.log('滚动到底msg' + JSON.stringify(msg));
 				this.scrollToView = 'msg' + msg.id;
 			});
 		},
