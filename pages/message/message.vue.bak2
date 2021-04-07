@@ -11,7 +11,7 @@
 				upper-threshold="50"
 			>
 				<!-- 加载历史数据waitingUI -->
-				<view class="loading" v-if="isHistoryLoading">
+				<view class="loading">
 					<view class="spinner">
 						<view class="rect1"></view>
 						<view class="rect2"></view>
@@ -65,10 +65,10 @@
 											<u-row>
 												<u-col span="8" @click="fileClick(row)">
 													<text style="color: #FFFFFF;">
-														{{ row.file.fileName }}
+														{{row.file.fileName}}
 														<br />
 													</text>
-													<text style="font-size: 5rpx;color: #F7F7F7;">{{ row.file.fileSize }}k</text>
+													<text style="font-size: 5rpx;color: #F7F7F7;">{{row.file.fileSize}}k</text>
 												</u-col>
 												<u-col span="2" @click="fileClick(row)"><u-icon size="40" name="file-text"></u-icon></u-col>
 											</u-row>
@@ -88,7 +88,7 @@
 							</view>
 							<!-- 右-头像 -->
 							<view class="right">
-								<image :src="'http://47.93.112.3:1250' + userDetailedInfo.userHeader"></image>
+								<image :src="'http://47.93.112.3:1250'+userDetailedInfo.userHeader"></image>
 								<!-- <u-col v-if="row.isme" style="margin-right: 10rpx;"><avatar :src="'http://47.93.112.3:1250'+userDetailedInfo.userHeader" size="80" mode="square" /></u-col> -->
 							</view>
 						</view>
@@ -97,7 +97,7 @@
 							<!-- 左-头像 -->
 							<view class="left">
 								<!-- <image :src=""></image> -->
-								<image :src="'http://47.93.112.3:1250' + row.userHeader"></image>
+								<image :src="'http://47.93.112.3:1250'+row.userHeader"></image>
 								<!-- <u-col v-if="!row.isme" span="2"><avatar size="80" mode="square" /></u-col> -->
 							</view>
 							<!-- 右-用户名称-时间-消息 -->
@@ -124,10 +124,10 @@
 											<u-row>
 												<u-col span="8" @click="fileClick(row)">
 													<text>
-														{{ row.file.fileName }}
+														{{row.file.fileName}}
 														<br />
 													</text>
-													<text style="font-size: 5rpx;color: #999999;">{{ row.file.fileSize }}k</text>
+													<text style="font-size: 5rpx;color: #999999;">{{row.file.fileSize}}k</text>
 												</u-col>
 												<u-col span="2" @click="fileClick(row)"><u-icon size="40" name="file-text-fill"></u-icon></u-col>
 											</u-row>
@@ -221,10 +221,9 @@ import { mapState, mapMutations } from 'vuex';
 import { pathToBase64, base64ToPath } from '../../js_sdk/gsq-image-tools/image-tools/index.js';
 import file from '../../components/tki-file-manager/tki-file-manager.vue';
 import lFile from '@/components/l-file/l-file.vue';
-import * as sqllite from '../../util/sqllite.js'
 export default {
 	computed: {
-		...mapState(['userDetailedInfo', 'userName', 'isOnLine', 'msgList', 'socketTask', 'friendList', 'groupList', 'talkConfirm'])
+		...mapState(['userDetailedInfo','userName', 'isOnLine', 'msgList', 'socketTask', 'friendList', 'groupList', 'talkConfirm'])
 	},
 	components: {
 		avatar,
@@ -566,10 +565,8 @@ export default {
 				blessing: null,
 				money: null
 			},
-			localPath: '',
-			friendInfo: {},
-			pageSize:20,
-			pageNum:1
+			localPath:'',
+			friendInfo:{}
 		};
 	},
 	created() {
@@ -592,7 +589,7 @@ export default {
 			console.log(that.friendList);
 			//从friendList过滤获取此人姓名
 			friendInfo = that.friendList.find(item => item.user.userAccount == params.id);
-			this.friendInfo = friendInfo;
+			this.friendInfo=friendInfo
 			console.log(friendInfo);
 			uni.setNavigationBarTitle({
 				title: friendInfo.user.userName != null ? friendInfo.user.userName : friendInfo.user.userAccount
@@ -606,7 +603,7 @@ export default {
 			uni.setNavigationBarTitle({
 				title: groupInfo.userGroupName
 			});
-			console.log('groupList:{}', groupInfo);
+			console.log("groupList:{}",groupInfo)
 			this.optionName = groupInfo.userGroupName;
 			this.msgBody.receiveAccount = groupInfo.id;
 		}
@@ -616,7 +613,7 @@ export default {
 			console.log('收到了一条消息！');
 			let data = JSON.parse(res.data);
 			console.log(that.optionName);
-
+			
 			if (data.action == 2) {
 				console.log(friendInfo);
 				if (friendInfo.user.userAccount == data.sourceAccount) {
@@ -629,7 +626,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: path,
-								userHeader: friendInfo.user.userHeader,
+								userHeader:friendInfo.user.userHeader,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength,
 								img: {
@@ -647,7 +644,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: res,
-								userHeader: friendInfo.user.userHeader,
+								userHeader:friendInfo.user.userHeader,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength
 							});
@@ -658,18 +655,18 @@ export default {
 							id: data.header.id,
 							isSys: false,
 							isme: false,
-							userHeader: friendInfo.user.userHeader,
+							userHeader:friendInfo.user.userHeader,
 							msg: data.msgBody,
-							file: JSON.parse(data.msgBody),
+							file:JSON.parse(data.msgBody),
 							type: data.header.type
 						});
 						that.jumpScroll();
-					} else if (data.header.type == 'text') {
+					}else if (data.header.type == 'text') {
 						that.msgs.push({
 							id: data.header.id,
 							isSys: false,
 							isme: false,
-							userHeader: friendInfo.user.userHeader,
+							userHeader:friendInfo.user.userHeader,
 							msg: data.msgBody,
 							type: data.header.type
 						});
@@ -677,12 +674,13 @@ export default {
 					}
 				}
 			} else if (data.action == 3) {
-				if (that.userName != data.sourceAccount && data.receiveAccount == groupInfo.id) {
-					var sourceUserInfo = JSON.parse(data.header.sourceUserInfo);
+				if (that.userName != data.sourceAccount&&data.receiveAccount==groupInfo.id) {
+					var sourceUserInfo=JSON.parse(data.header.sourceUserInfo)
 					console.log(data.sourceAccount + '发来了群内新消息');
 					if (data.header.type == 'img') {
 						// console.log(data.msgBody);
 						base64ToPath(data.msgBody).then(path => {
+							
 							that.msgs.push({
 								id: data.header.id,
 								isSys: false,
@@ -690,7 +688,7 @@ export default {
 								msg: path,
 								type: data.header.type,
 								voiceLength: data.header.voiceLength,
-								userHeader: sourceUserInfo.userHeader,
+								userHeader:sourceUserInfo.userHeader,
 								sourceName: data.sourceAccount,
 								img: {
 									w: data.header.imgw,
@@ -707,7 +705,7 @@ export default {
 								isSys: false,
 								isme: false,
 								msg: res,
-								userHeader: sourceUserInfo.userHeader,
+								userHeader:sourceUserInfo.userHeader,
 								type: data.header.type,
 								sourceName: data.sourceAccount,
 								voiceLength: data.header.voiceLength
@@ -720,18 +718,18 @@ export default {
 							isSys: false,
 							isme: false,
 							msg: data.msgBody,
-							userHeader: sourceUserInfo.userHeader,
-							file: JSON.parse(data.msgBody),
+							userHeader:sourceUserInfo.userHeader,
+							file:JSON.parse(data.msgBody),
 							sourceName: data.sourceAccount,
 							type: data.header.type
 						});
 						that.jumpScroll();
-					} else if (data.header.type == 'text') {
+					}else if (data.header.type == 'text') {
 						that.msgs.push({
 							id: data.id,
 							isSys: false,
 							isme: false,
-							userHeader: sourceUserInfo.userHeader,
+							userHeader:sourceUserInfo.userHeader,
 							msg: data.msgBody,
 							sourceName: data.sourceAccount,
 							type: data.header.type
@@ -743,7 +741,8 @@ export default {
 					// 	isSys: false,
 					// 	isme: false,
 					// 	msg: data.msgBody,
-
+						
+						
 					// 	type: data.header.type,
 					// 	img: {
 					// 		w: data.header.imgw,
@@ -751,9 +750,8 @@ export default {
 					// 	}
 					// });
 				}
-				
+				that.jumpScroll();
 			}
-			that.jumpScroll();
 		});
 		//将此次会话缓存进vuex
 		that.setTalkSession(userInfo.userName + '_talkSession_' + this.optionName);
@@ -769,21 +767,27 @@ export default {
 		// console.log(that.msgList);
 		that.setMsgList(that.msgList);
 		//加载缓存中的消息记录
-		//改造为从sqllite中获取数据
-		sqllite.executeSql("select * from messageList where messageKey='" + userInfo.userName + "_allMsg_" + params.id+"' order by id desc limit 0,10 ").then(allMsg => {
-			console.log(allMsg);
+		uni.getStorage({
+			key: userInfo.userName + '_allMsg_' + params.id
+		}).then(resdata => {
+			// console.log(resdata);
+			resdata = resdata.filter(item => {
+				return item != null;
+			});
+			if (resdata[0].data == '') {
+				resdata[0].data = '[]';
+			}
+			resdata = JSON.parse(resdata[0].data);
+			// console.log(resdata);
 			if (that.action == 2) {
-				allMsg.forEach(item => {
-					if(item.header=='[object Object]'){
-						return;
-					}
-					item.header=JSON.parse(item.header)
+				resdata.forEach(item => {
 					if (item.sourceAccount == userInfo.userName) {
-						that.msgs.unshift({
+						that.msgs.push({
 							id: item.header.id,
 							isSys: false,
 							isme: true,
-							file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
+							
+							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
 							type: item.header.type,
 							voiceLength: item.header.voiceLength,
@@ -793,13 +797,13 @@ export default {
 							}
 						});
 					} else {
-						that.msgs.unshift({
+						that.msgs.push({
 							id: item.header.id,
 							isSys: false,
 							isme: false,
-							file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
+							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
-							userHeader: friendInfo.user.userHeader,
+							userHeader:friendInfo.user.userHeader,
 							type: item.header.type,
 							voiceLength: item.header.voiceLength,
 							img: {
@@ -810,17 +814,17 @@ export default {
 					}
 				});
 			} else {
-				allMsg.forEach(item => {
-					if(item.header=='[object Object]'){
-						return;
-					}
-					item.header=JSON.parse(item.header)
+				resdata.forEach(item => {
+					// if (item.type == 'text') {
+					// 	item.msgBody = '<p>' + that.subStrMsg(item.msgBody, 25) + '</p>';
+					// }
+					// console.log(item.msgBody);
 					if (item.sourceAccount == userInfo.userName) {
-						that.msgs.unshift({
+						that.msgs.push({
 							id: item.header.id,
 							isSys: false,
 							isme: true,
-							file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
+							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
 							type: item.header.type,
 							voiceLength: item.header.voiceLength,
@@ -830,15 +834,15 @@ export default {
 							}
 						});
 					} else {
-						if (item.header.sourceUserInfo) {
-							var sourceUserInfo = JSON.parse(item.header.sourceUserInfo);
+						if(item.header.sourceUserInfo){
+							var sourceUserInfo=JSON.parse(item.header.sourceUserInfo)
 						}
-						that.msgs.unshift({
+						that.msgs.push({
 							id: item.header.id,
 							isSys: false,
 							isme: false,
-							userHeader: sourceUserInfo != undefined ? sourceUserInfo.userHeader : '',
-							file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
+							userHeader:sourceUserInfo!=undefined?sourceUserInfo.userHeader:'',
+							file:item.header.type=='file'?JSON.parse(item.msgBody):'',
 							msg: item.msgBody,
 							sourceName: item.sourceAccount,
 							type: item.header.type,
@@ -851,8 +855,13 @@ export default {
 					}
 				});
 			}
-			that.jumpScroll()
+			// console.log(that.msgs);
+			this.jumpScroll();
 		});
+		//延迟50毫秒执行，太快有bug
+		// setTimeout(() => {
+
+		// }, 100);
 	},
 	onLoad(option) {
 		// this.getMsgList();
@@ -893,46 +902,49 @@ export default {
 		...mapMutations(['login', 'setMsgList', 'setTalkSession', 'removeTalkSession', 'setTalkConfirm']),
 		fileClick(row) {
 			console.log(row);
-			if (row.file.localPath == undefined) {
-				this.downLoadThis(row.file.filePath).then(localPath => {
-					row.file.localPath = localPath;
-					console.log(localPath);
-					console.log(this.userName + '_allMsg_' + this.msgBody.receiveAccount);
+			if(row.file.localPath==undefined){
+				this.downLoadThis(row.file.filePath).then(localPath=>{
+					row.file.localPath=localPath
+					console.log(localPath)
+					console.log(this.userName + '_allMsg_' + this.msgBody.receiveAccount)
 					//根据时间戳恢复消息成为已下载消息
-					var msgList = uni.getStorageSync(this.userName + '_allMsg_' + this.msgBody.receiveAccount);
-					msgList = JSON.parse(msgList);
+					var msgList=uni.getStorageSync(this.userName + '_allMsg_' + this.msgBody.receiveAccount)
+					msgList=JSON.parse(msgList)
 					// console.log(msgList)
-					msgList.forEach(msg => {
-						if (msg.header.type == 'file') {
-							console.log('找到了file类型文件');
-							if (msg.header.id == row.id) {
-								console.log('找到了文件消息，设置已下载');
-								let msgBody = JSON.parse(msg.msgBody);
-								msgBody.localPath = localPath;
-								msg.msgBody = JSON.stringify(msgBody);
-								commonUtil.setItem(this.userName + '_allMsg_' + this.msgBody.receiveAccount, JSON.stringify(msgList));
+					msgList.forEach(msg=>{
+						if(msg.header.type=='file'){
+							console.log('找到了file类型文件')
+							if(msg.header.id==row.id){
+								console.log('找到了文件消息，设置已下载')
+								let msgBody=JSON.parse(msg.msgBody)
+								msgBody.localPath=localPath
+								msg.msgBody=JSON.stringify(msgBody)
+								commonUtil.setItem(this.userName + '_allMsg_' + this.msgBody.receiveAccount,JSON.stringify(msgList))
 							}
 						}
-					});
+					})
 					this.$refs.lFile.open(localPath);
-				});
-			} else {
+				})
+				
+			}else{
 				this.$refs.lFile.open(row.file.localPath);
 			}
 		},
 		openThisFile(filePath) {
-			let url = 'http://47.93.112.3:1250' + filePath;
-			/* 下载返回临时路径（退出应用失效） */
-			this.$refs.lFile.download(url).then(path => {
-				/* 预览 */
-				console.log(path);
-				this.$refs.lFile.open(path);
-			});
-		},
+				let url = 'http://47.93.112.3:1250'+filePath;
+				/* 下载返回临时路径（退出应用失效） */
+				this.$refs.lFile.download(url)
+				.then(path=>{
+					/* 预览 */
+					console.log(path)
+					this.$refs.lFile.open(path);
+				});
+			},
 		/* 保存 */
 		downLoadThis(filePath) {
-			let url = 'http://47.93.112.3:1250' + filePath;
-			return this.$refs.lFile.download(url, 'local');
+			let url = 'http://47.93.112.3:1250'+filePath;
+			return this.$refs.lFile.download(url,'local')
+			
 		},
 		/* 上传 */
 		uploadFile() {
@@ -960,22 +972,22 @@ export default {
 			let msgBody = JSON.parse(JSON.stringify(this.msgBody));
 			msgBody.msgBody = JSON.stringify(data);
 			msgBody.header.type = 'file';
-			msgBody.header.id = new Date().getTime();
+			msgBody.header.id=new Date().getTime()
 			msgBody.sourceAccount = this.userName;
 			console.log(msgBody);
 			this.socketTask.send({
-				data: JSON.stringify(msgBody)
+				data:JSON.stringify(msgBody)
 			});
 			this.msgs.push({
 				id: msgBody.header.id,
 				isSys: false,
 				isme: true,
-				file: data,
+				file:data,
 				msg: JSON.stringify(data),
 				type: msgBody.header.type
 			});
 			this.jumpScroll();
-			this.hideDrawer();
+			this.hideDrawer()
 		},
 		// 接受消息(筛选处理)
 		screenMsg(msg) {
@@ -1031,102 +1043,6 @@ export default {
 
 		//触发滑动到顶部(加载历史信息记录)
 		loadHistory(e) {
-			let that=this
-			var userInfo = JSON.parse(uni.getStorageSync('userInfo'));
-			var routes = getCurrentPages();
-			var params = routes[routes.length - 1].options;
-			that.isHistoryLoading=true
-			var sql="select * from messageList where messageKey='" + userInfo.userName + "_allMsg_" + params.id+"' order by id desc limit "+(that.pageNum-1)*that.pageSize+","+that.pageSize;
-			console.log(sql)
-			sqllite.executeSql("select * from messageList where messageKey='" + userInfo.userName + "_allMsg_" + params.id+"' order by id desc limit "+(that.pageNum-1)*that.pageSize+","+that.pageSize).then(allMsg => {
-				that.isHistoryLoading=false
-				console.log(allMsg);
-				if (that.action == 2) {
-					allMsg.forEach(item => {
-						if(item.header=='[object Object]'){
-							return;
-						}
-						item.header=JSON.parse(item.header)
-						if (item.sourceAccount == userInfo.userName) {
-							that.msgs.unshift({
-								id: item.header.id,
-								isSys: false,
-								isme: true,
-								file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
-								msg: item.msgBody,
-								type: item.header.type,
-								voiceLength: item.header.voiceLength,
-								img: {
-									w: item.header.imgw,
-									h: item.header.imgh
-								}
-							});
-						} else {
-							that.msgs.unshift({
-								id: item.header.id,
-								isSys: false,
-								isme: false,
-								file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
-								msg: item.msgBody,
-								userHeader: friendInfo.user.userHeader,
-								type: item.header.type,
-								voiceLength: item.header.voiceLength,
-								img: {
-									w: item.header.imgw,
-									h: item.header.imgh
-								}
-							});
-						}
-					});
-				} else {
-					allMsg.forEach(item => {
-						if(item.header=='[object Object]'){
-							return;
-						}
-						item.header=JSON.parse(item.header)
-						if (item.sourceAccount == userInfo.userName) {
-							that.msgs.unshift({
-								id: item.header.id,
-								isSys: false,
-								isme: true,
-								file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
-								msg: item.msgBody,
-								type: item.header.type,
-								voiceLength: item.header.voiceLength,
-								img: {
-									w: item.header.imgw,
-									h: item.header.imgh
-								}
-							});
-						} else {
-							if (item.header.sourceUserInfo) {
-								var sourceUserInfo = JSON.parse(item.header.sourceUserInfo);
-							}
-							that.msgs.unshift({
-								id: item.header.id,
-								isSys: false,
-								isme: false,
-								userHeader: sourceUserInfo != undefined ? sourceUserInfo.userHeader : '',
-								file: item.header.type == 'file' ? JSON.parse(item.msgBody) : '',
-								msg: item.msgBody,
-								sourceName: item.sourceAccount,
-								type: item.header.type,
-								voiceLength: item.header.voiceLength,
-								img: {
-									w: item.header.imgw,
-									h: item.header.imgh
-								}
-							});
-						}
-					});
-				}
-				if(allMsg.length>0){
-					that.pageNum=that.pageNum+1
-				}
-				console.log(that.isHistoryLoading)
-			}).catch(e=>{
-				that.isHistoryLoading=false
-			});
 			// if (this.isHistoryLoading) {
 			// 	return;
 			// }
@@ -1771,12 +1687,12 @@ export default {
 		},
 		jumpScroll() {
 			let that = this;
-			console.log(that.msgs);
+			// console.log(that.msgs);
 			if (!(that.msgs.length == 0)) {
 				this.$nextTick(function() {
 					// 滚动到底
 					that.scrollToView = 'msg' + that.msgs[that.msgs.length - 1].id;
-					console.log(that.scrollToView);
+					console.log(that.scrollToView)
 				});
 			}
 		}

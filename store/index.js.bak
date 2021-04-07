@@ -6,7 +6,6 @@ import {
 	pathToBase64,
 	base64ToPath
 } from '../js_sdk/gsq-image-tools/image-tools/index.js';
-import * as sqllite from '../util/sqllite.js'
 // import {
 // 	mapState,
 // 	map_mutations
@@ -40,7 +39,7 @@ const store = new Vuex.Store({
 	},
 	mutations: {
 		login(state, userInfo) {
-			console.log("login方法同步vuex，{}", userInfo)
+			console.log("login方法同步vuex，{}",userInfo)
 			state.userName = userInfo.userAccount || '新用户';
 			state.userDetailedInfo = userInfo
 			state.hasLogin = true;
@@ -57,8 +56,8 @@ const store = new Vuex.Store({
 			uni.removeStorageSync('userInfo')
 			uni.removeStorageSync('Authorization')
 		},
-		setUserDetailedInfo(state, userDetailedInfo) {
-			state.userDetailedInfo = userDetailedInfo
+		setUserDetailedInfo(state,userDetailedInfo){
+			state.userDetailedInfo=userDetailedInfo
 			uni.setStorageSync('userInfo', JSON.stringify(state))
 		},
 		setSocket(state, socketTask) {
@@ -99,7 +98,7 @@ const store = new Vuex.Store({
 			state.needStopVedioTalk = b
 		},
 		dealMsg(state, para) {
-			var data = para[0]
+			let data = para[0]
 			let userInfo = para[1]
 			let that = this;
 			if (data.action == "0") {
@@ -139,13 +138,11 @@ const store = new Vuex.Store({
 				console.log(friendInfo);
 				console.log('消息会话来自：' + optionname);
 				console.log(userInfo.userName + '_allMsg_' + optionname);
-				//根据这个获取从sqllite获取
 				let resdata = uni.getStorageSync(userInfo.userName + '_allMsg_' + optionname);
 				// resdata = resdata.filter(item => {
 				// 	return item != null && item.data != '';
 				// });
-				let messageKey = userInfo.userName + '_allMsg_' + optionname
-				// console.log(resdata);
+				console.log(resdata);
 				if (resdata.length == 0) {
 					resdata = '[]'
 				}
@@ -159,30 +156,19 @@ const store = new Vuex.Store({
 					// console.log(data.msgBody)
 					base64ToPath(data.msgBody).then(path => {
 						console.log('获取到本地路径：' + path);
-						data.header.imgLocalPath = path;
+						data.imgLocalPath = path;
 						data.msgBody = path;
 						resdata.push(data);
-						//持久化的方式修改为insert
-						var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-							"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-							"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-						console.log(sql,data)
-						sqllite.executeSql(sql)
-						// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+						commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 					});
 				} else if (data.header.type == 'voice') {
 					// 
 					commonUtil.lzFileWriter(data.msgBody, new Date().getTime() + '.mp3').then((res, rej) => {
 						console.log('解析mp3结果：' + JSON.stringify(res));
-						data.header.voiceLocalPath = res;
+						data.voiceLocalPath = res;
 						data.msgBody = res;
 						resdata.push(data);
-						var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-							"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-							"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-						console.log(sql,data)
-						sqllite.executeSql(sql)
-						// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+						commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 					});
 					// 
 					// #ifndef H5
@@ -196,23 +182,12 @@ const store = new Vuex.Store({
 					// #endif
 				} else if (data.header.type == 'file') {
 					resdata.push(data);
-					var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-						"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-						"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-					console.log(sql,data)
-					sqllite.executeSql(sql)
-					// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+					commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 				} else if (data.header.type == 'text') {
 					resdata.push(data);
-					var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-						"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-						"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-					console.log(sql,data)
-					sqllite.executeSql(sql)
-					// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+					commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 				}
-				
-				
+
 				uni.getStorage({
 					key: userInfo.userName + '_msgList'
 				}).then(msgListData => {
@@ -280,7 +255,7 @@ const store = new Vuex.Store({
 								optionName: friendInfo.user.userName,
 								optionMsg: data.msgBody,
 								waitReadMsgNum: 1,
-
+						
 								msgTime: data.header.msgTime,
 								type: data.header.type,
 								isGroupMsg: false
@@ -345,7 +320,6 @@ const store = new Vuex.Store({
 				// 	return item != null && item.data != '';
 				// });
 				// console.log(resdata);
-				let messageKey = userInfo.userName + '_allMsg_' + optionname
 				if (resdata.length == 0) {
 					resdata = '[]'
 				}
@@ -359,29 +333,19 @@ const store = new Vuex.Store({
 					// console.log(data.msgBody)
 					base64ToPath(data.msgBody).then(path => {
 						console.log('获取到本地路径：' + path);
-						data.header.imgLocalPath = path;
+						data.imgLocalPath = path;
 						data.msgBody = path;
 						resdata.push(data);
-						var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-							"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-							"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-						console.log(sql,data)
-						sqllite.executeSql(sql)
-						// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+						commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 					});
 				} else if (data.header.type == 'voice') {
 					// 
 					commonUtil.lzFileWriter(data.msgBody, new Date().getTime() + '.mp3').then((res, rej) => {
 						console.log('解析mp3结果：' + JSON.stringify(res));
-						data.header.voiceLocalPath = res;
+						data.voiceLocalPath = res;
 						data.msgBody = res;
 						resdata.push(data);
-						var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-							"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-							"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-						console.log(sql,data)
-						sqllite.executeSql(sql)
-						// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+						commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 					});
 					// 
 					// #ifndef H5
@@ -395,20 +359,10 @@ const store = new Vuex.Store({
 					// #endif
 				} else if (data.header.type == 'file') {
 					resdata.push(data);
-					var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-						"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-						"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-					console.log(sql,data)
-					sqllite.executeSql(sql)
-					// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+					commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 				} else if (data.header.type == 'text') {
 					resdata.push(data);
-					var sql = 'insert into messageList(messageKey,action,header,msgBody,receiveAccount,sourceAccount)' +
-						"values('" + messageKey + "','" + data.action + "','" + JSON.stringify(data.header) + "','" + data.msgBody +
-						"','" + data.receiveAccount + "','" + data.sourceAccount + "')"
-					console.log(sql,data)
-					sqllite.executeSql(sql)
-					// commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
+					commonUtil.setItem(userInfo.userName + '_allMsg_' + optionname, JSON.stringify(resdata));
 				}
 				// resdata.push(data);
 				// // console.log(resdata);
@@ -682,7 +636,7 @@ const store = new Vuex.Store({
 				let userInfo = JSON.parse(uni.getStorageSync('userInfo'));
 				console.log(userInfo);
 				service.getOfflineMsgList().then(res => {
-					console.error(res.data);
+					console.log(res.data);
 					if (res != undefined) {
 						console.log(res.data);
 						res.data.forEach(item => {

@@ -211,6 +211,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/sqllite/sqllite",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#7a7e83",
@@ -248,6 +257,12 @@
 			// 	"iconPath": "static/img/add.png",
 			// 	"selectedIconPath": "static/img/userHL.png"
 			// } ,
+			// {
+			// 	"pagePath": "pages/sqllite/sqllite",
+			// 	"text": "sqllite",
+			// 	"iconPath": "static/img/add.png",
+			// 	"selectedIconPath": "static/img/userHL.png"
+			// }
 		]
 	},
 	"globalStyle": {

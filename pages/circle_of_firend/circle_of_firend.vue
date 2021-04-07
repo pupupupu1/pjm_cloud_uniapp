@@ -4,7 +4,7 @@
 		<view class="uni-list">
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(value, key) in listData" :key="key" @click="goDetail(value)">
 				<view class="uni-media-list">
-					<image v-if="value.picArray" class="uni-media-list-logo" :src="'http://39.105.78.171:1250' + value.picArray[0]"></image>
+					<image v-if="value.picArray" class="uni-media-list-logo" :src="'http://47.93.112.3:1250' + value.picArray[0]"></image>
 					<view class="uni-media-list-body">
 						<view style="display: flex;flex-direction:row;">
 							<avatar size="80" mode="circle" />

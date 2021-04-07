@@ -18,8 +18,8 @@ import { mapState, mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
-			url: 'rtmp://39.105.78.171:7777/rtmplive/',
-			optionUrl: 'rtmp://39.105.78.171:7777/rtmplive/',
+			url: 'rtmp://47.93.112.3:7777/rtmplive/',
+			optionUrl: 'rtmp://47.93.112.3:7777/rtmplive/',
 			enableCamera: false,
 			context: null,
 			sponsor: true,

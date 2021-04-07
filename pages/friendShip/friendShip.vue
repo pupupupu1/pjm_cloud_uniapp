@@ -16,7 +16,7 @@
 		<view v-show="current == 0">
 			<u-cell-group v-for="item in friendList" :key="item.user.userAccount">
 				<u-cell-item @tap="cellClick(item.user.userAccount, 2)" :arrow="false" :use-label-slot="true" hover-class="cell-hover-class">
-					<view slot="icon" style="position:relative;top: 10rpx;width: 100rpx;"><avatar :src="'http://39.105.78.171:1250'+item.user.userHeader" size="80" mode="square"></avatar></view>
+					<view slot="icon" style="position:relative;top: 10rpx;width: 100rpx;"><avatar :src="'http://47.93.112.3:1250'+item.user.userHeader" size="80" mode="square"></avatar></view>
 					<template>
 						<view slot="title" style="font-size: 35rpx;">{{ item.user.userAccount }}</view>
 					</template>
@@ -26,7 +26,7 @@
 		<view v-show="current == 1">
 			<u-cell-group v-for="item in groupList" :key="item.id">
 				<u-cell-item @tap="cellClick(item.id, 3)" :arrow="false" :use-label-slot="true" hover-class="cell-hover-class">
-					<view slot="icon" style="position:relative;top: 10rpx;width: 100rpx;"><avatar :src="'http://39.105.78.171:1250'+item.userGroupAvatarPath" size="80" mode="square"></avatar></view>
+					<view slot="icon" style="position:relative;top: 10rpx;width: 100rpx;"><avatar :src="'http://47.93.112.3:1250'+item.userGroupAvatarPath" size="80" mode="square"></avatar></view>
 					<template>
 						<view slot="title" style="font-size: 35rpx;">{{ item.userGroupName }}</view>
 					</template>

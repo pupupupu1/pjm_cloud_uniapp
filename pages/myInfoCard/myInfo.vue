@@ -4,7 +4,7 @@
 			<u-cell-item  :use-label-slot="true" hover-class="cell-hover-class">
 				<view slot="icon" style="width: 100rpx;" @click="updateHeader">头像</view>
 				<view slot="label" @click="updateHeader"></view>
-				<view slot="right-icon" @click="seeHeader"><avatar :src="'http://39.105.78.171:1250' + userDetailedInfo.userHeader" size="160" mode="square"></avatar></view>
+				<view slot="right-icon" @click="seeHeader"><avatar :src="'http://47.93.112.3:1250' + userDetailedInfo.userHeader" size="160" mode="square"></avatar></view>
 				<!-- <view slot="title">头像</view> -->
 			</u-cell-item>
 			<u-cell-item :use-label-slot="true" hover-class="cell-hover-class">
@@ -69,7 +69,7 @@ export default {
 		},
 		seeHeader() {
 			var imgArr = [];
-			imgArr.push('http://39.105.78.171:1250'+this.userDetailedInfo.userHeader);
+			imgArr.push('http://47.93.112.3:1250'+this.userDetailedInfo.userHeader);
 			//预览图片
 			uni.previewImage({
 				urls: imgArr,

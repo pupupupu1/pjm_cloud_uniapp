@@ -3,7 +3,7 @@
 		<view><br /></view>
 		<view style="height: 80rpx;">
 			<u-row gutter="10">
-				<u-col span="2"><avatar size="80" mode="circle" :src="'http://39.105.78.171:1250'+circle_of_friend_info.userHeader" /></u-col>
+				<u-col span="2"><avatar size="80" mode="circle" :src="'http://47.93.112.3:1250'+circle_of_friend_info.userHeader" /></u-col>
 				<u-col span="8">
 					<view>{{ circle_of_friend_info.userAccount }}</view>
 					<view>{{ circle_of_friend_info.createTime | formatDate }}</view>
@@ -14,7 +14,7 @@
 		<text>{{ circle_of_friend_info.textContent }}</text>
 		<br />
 		<view class="pic_list">
-			<view v-for="(value, key) in circle_of_friend_info.picPathArray"><image :src="'http://39.105.78.171:1250' + value"></image></view>
+			<view v-for="(value, key) in circle_of_friend_info.picPathArray"><image :src="'http://47.93.112.3:1250' + value"></image></view>
 		</view>
 		<view>
 			<u-row>
@@ -92,10 +92,10 @@ export default {
 				this.commentList = this.circle_of_friend_info.circleOfFriendsComments;
 				this.commentList.forEach(item => {
 					if (this.userDetailedInfo.userAccount == item.userAccount) {
-						item.userHeader = 'http://39.105.78.171:1250' + this.userDetailedInfo.userHeader;
+						item.userHeader = 'http://47.93.112.3:1250' + this.userDetailedInfo.userHeader;
 					} else {
 						let user = this.friendList.find(i => i.user.userAccount == item.userAccount);
-						item.userHeader = 'http://39.105.78.171:1250' + user.user.userHeader;
+						item.userHeader = 'http://47.93.112.3:1250' + user.user.userHeader;
 					}
 				});
 				console.log('最新评论', this.commentList);

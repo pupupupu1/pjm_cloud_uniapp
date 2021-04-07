@@ -5,7 +5,7 @@
 				<view style="padding: 20rpx;" @click="toMyInfo">
 					<u-row gutter="10" show-head="false" show-foot="false" @click="toMyInfo">
 						<u-col span="4" @click="toMyInfo">
-							<view><avatar :src="'http://39.105.78.171:1250' + userInfo.userHeader" size="160" mode="square"></avatar></view>
+							<view><avatar :src="'http://47.93.112.3:1250' + userInfo.userHeader" size="160" mode="square"></avatar></view>
 						</u-col>
 						<u-col span="6" @click="toMyInfo">
 							<view>姓名:{{ userInfo.userName }}</view>

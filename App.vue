@@ -9,6 +9,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import common from './util/commonUtil.js';
+import * as sqllite from './util/sqllite.js'
 export default {
 	computed: {
 		...mapState(['hasLogin', 'forcedLogin', 'socketTask'])
@@ -31,6 +32,14 @@ export default {
 	},
 	onShow: function() {
 		console.log('App Show');
+		if(!sqllite.isOpen()){
+			sqllite.openSqlite().then(res=>{
+				console.log("已经打开sqllite数据库")
+				sqllite.messageListSQL().then(res2=>{
+					console.log("建表成功")
+				})
+			})
+		}
 		uni.getLocation({
 			type: 'wgs84',
 			geocode: true, //设置该参数为true可直接获取经纬度及城市信息

@@ -3,7 +3,7 @@
 		<view>
 			<u-cell-group v-for="item in applyList" :key="item.user.userAccount">
 				<u-cell-item @tap="applyInfo(item)" :arrow="false" :use-label-slot="true" hover-class="cell-hover-class">
-					<view slot="icon" style="position:relative;top: 10rpx;width: 100rpx;"><avatar :src="'http://39.105.78.171:1250'+item.user.userHeader" size="80" mode="square"></avatar></view>
+					<view slot="icon" style="position:relative;top: 10rpx;width: 100rpx;"><avatar :src="'http://47.93.112.3:1250'+item.user.userHeader" size="80" mode="square"></avatar></view>
 					<template>
 						<view slot="title" style="font-size: 35rpx;">{{ item.user.userAccount }}</view>
 					</template>

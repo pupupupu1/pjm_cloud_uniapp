@@ -491,7 +491,7 @@ export default {
 		// connWebsocket(userInfo){
 		// 	// let baseUrl = 'ws://127.0.0.1:1234/websocket/';
 		// 	// let baseUrl = 'ws://www.becomeagoodboy.top:12345/websocket/';
-		// 	let baseUrl = 'ws://39.105.78.171:1234/websocket/';
+		// 	let baseUrl = 'ws://47.93.112.3:1234/websocket/';
 		// 	let SocketTask = uni.connectSocket({
 		// 		url: baseUrl + userInfo.token,
 		// 		complete: () => {}
